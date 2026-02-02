@@ -2,169 +2,175 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Kufta — Hawawshi Cooking Journey</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kufta | Hawawshi Experience</title>
 
-<!-- GSAP + ScrollTrigger -->
+<!-- GSAP/ScrollTrigger -->
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+<!-- Lottie -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js"></script>
 
 <style>
   body {
     margin: 0;
     font-family: "Segoe UI", sans-serif;
-    background: #faf8f2;
-    color: #222;
+    background: #fefbf8;
     overflow-x: hidden;
+    color: #222;
   }
+
   header {
     text-align: center;
     padding: 3rem 1rem;
-    background: #e2c9b8;
+    background: #e8d4c2;
     font-size: 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 20;
   }
 
-  section {
-    position: relative;
-    padding: 8rem 1rem;
+  .section {
     min-height: 100vh;
+    padding: 4rem 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
   }
 
-  .ingredient {
+  .lottie-container {
     width: 300px;
-    opacity: 0;
-    transform: translateY(100px);
-  }
-
-  #finalSandwich {
-    opacity: 0;
-    transform: scale(0.5);
+    height: 300px;
+    pointer-events: none;
   }
 
   .label {
     text-align: center;
     margin-top: 1rem;
     font-weight: bold;
-    color: #5c3f32;
+    font-size: 1.2rem;
+  }
+
+  #progressBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 5px;
+    background: #e74c3c;
+    width: 0%;
+    z-index: 30;
   }
 </style>
 </head>
 
 <body>
 
-<header>
-  🍖 Welcome to the Hawawshi Cooking Journey 🍞
-</header>
+<div id="progressBar"></div>
 
-<!-- Bread Scroll Section -->
-<section id="breadSection">
+<header>🍢 The Interactive Hawawshi Story</header>
+
+<section class="section" id="scene1">
   <div>
-    <!-- Hand‑drawn sketchy bread -->
-    <svg class="ingredient" id="breadSVG" viewBox="0 0 128 128">
-      <ellipse cx="64" cy="70" rx="60" ry="40" fill="#f2d7b5" stroke="#bc8b5e" stroke-width="4" />
-      <path d="M15,70 q30,-50 100,0" fill="#f9e4c8" stroke="#bc8b5e" stroke-width="4"/>
-    </svg>
-    <div class="label">Fresh Bread</div>
+    <div id="lottieBread" class="lottie-container"></div>
+    <div class="label">Fresh Bread Arrives</div>
   </div>
 </section>
 
-<!-- Meat Scroll Section -->
-<section id="meatSection">
+<section class="section" id="scene2">
   <div>
-    <svg class="ingredient" id="meatSVG" viewBox="0 0 128 128">
-      <rect x="10" y="30" width="108" height="60" rx="20"
-            fill="#a33f2a" stroke="#732c1d" stroke-width="4" />
-      <text x="64" y="70" text-anchor="middle" fill="#fff"
-            font-size="20">Meat</text>
-    </svg>
-    <div class="label">Juicy Meat</div>
+    <div id="lottieMeat" class="lottie-container"></div>
+    <div class="label">Sizzling Meat</div>
   </div>
 </section>
 
-<!-- Tahina Scroll Section -->
-<section id="tahinaSection">
+<section class="section" id="scene3">
   <div>
-    <svg class="ingredient" id="tahinaSVG" viewBox="0 0 128 128">
-      <path d="M20,20 q50,80 90,0" stroke="#e0d7c2" stroke-width="12"
-            fill="none" stroke-linecap="round"/>
-      <circle cx="64" cy="40" r="10" fill="#fff9ed"/>
-    </svg>
-    <div class="label">Drizzling Tahina</div>
+    <div id="lottieTahina" class="lottie-container"></div>
+    <div class="label">Tahina Magic</div>
   </div>
 </section>
 
-<!-- Final Assembly Section -->
-<section id="finalSection">
+<section class="section" id="scene4">
   <div>
-    <svg class="ingredient" id="finalSandwich" viewBox="0 0 200 200">
-      <!-- Bread bottom -->
-      <ellipse cx="100" cy="150" rx="80" ry="30" fill="#f2d7b5" stroke="#bc8b5e" stroke-width="4"/>
-      <!-- Meat middle -->
-      <rect x="30" y="100" width="140" height="50" rx="15"
-            fill="#a33f2a" stroke="#732c1d" stroke-width="3"/>
-      <!-- Tahina streak -->
-      <path d="M40,90 q60,30 120,0" stroke="#e0d7c2" stroke-width="10" fill="none"/>
-      <!-- Bread top -->
-      <ellipse cx="100" cy="60" rx="80" ry="30" fill="#f2d7b5" stroke="#bc8b5e" stroke-width="4"/>
-    </svg>
-    <div class="label">Your Hawawshi Is Ready! 🍽️</div>
+    <div id="lottiePickles" class="lottie-container"></div>
+    <div class="label">Pickles & Final Touch</div>
   </div>
 </section>
 
-<!-- Audio cues -->
-<audio id="sizzleSound" src="https://cdn.jsdelivr.net/gh/araffin/sound-effects/sizzle.mp3"></audio>
-<audio id="popSound"   src="https://cdn.jsdelivr.net/gh/araffin/sound-effects/pop.mp3"></audio>
-<audio id="drizzleSound" src="https://cdn.jsdelivr.net/gh/araffin/sound-effects/drizzle.mp3"></audio>
+<footer style="text-align:center; padding:2rem 0;">Kufta • 2026 🍽️</footer>
+
+<!-- Sound FX -->
+<audio id="soundSizzle" src="https://cdn.jsdelivr.net/gh/araffin/sound-effects/sizzle.mp3"></audio>
+<audio id="soundPop" src="https://cdn.jsdelivr.net/gh/araffin/sound-effects/pop.mp3"></audio>
+<audio id="soundDrip" src="https://cdn.jsdelivr.net/gh/araffin/sound-effects/drip.mp3"></audio>
 
 <script>
   gsap.registerPlugin(ScrollTrigger);
 
-  // Bread animation
-  gsap.to("#breadSVG", {
+  // PROGRESS BAR
+  gsap.to("#progressBar", {
+    width: "100%",
+    ease: "none",
     scrollTrigger: {
-      trigger: "#breadSection",
-      start: "top 80%",
-      toggleActions: "play none none reverse"
-    },
-    y: 0, opacity: 1, duration: 1.2, ease: "back.out(1.7)",
-    onStart: () => document.getElementById("popSound").play()
+      trigger: "body",
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 0.3
+    }
   });
 
-  // Meat animation
-  gsap.to("#meatSVG", {
+  function loadLottie(id, path) {
+    return lottie.loadAnimation({
+      container: document.getElementById(id),
+      renderer: "svg",
+      loop: true,
+      autoplay: false,
+      path: path
+    });
+  }
+
+  const breadAnim   = loadLottie("lottieBread", "https://assets10.lottiefiles.com/packages/lf20_mJr87p.json");
+  const meatAnim    = loadLottie("lottieMeat",  "https://assets4.lottiefiles.com/packages/lf20_yc4rgt2y.json");
+  const tahinaAnim  = loadLottie("lottieTahina","https://assets7.lottiefiles.com/packages/lf20_t3pmv7.json");
+  const picklesAnim = loadLottie("lottiePickles","https://assets1.lottiefiles.com/packages/lf20_2vbXrD.json");
+
+  // SCENE 1
+  gsap.to(breadAnim, {
     scrollTrigger: {
-      trigger: "#meatSection",
-      start: "top 80%",
-      toggleActions: "play none none reverse"
-    },
-    y: 0, opacity: 1, duration: 1.2, ease: "elastic.out(1, 0.5)",
-    onStart: () => document.getElementById("sizzleSound").play()
+      trigger: "#scene1",
+      start: "top 70%",
+      onEnter: () => { breadAnim.play(); document.getElementById("soundPop").play(); }
+    }
   });
 
-  // Tahina animation
-  gsap.to("#tahinaSVG", {
+  // SCENE 2
+  gsap.to(meatAnim, {
     scrollTrigger: {
-      trigger: "#tahinaSection",
-      start: "top 80%",
-      toggleActions: "play none none reverse"
-    },
-    y: 0, opacity: 1, duration: 1.3, ease: "power2.out",
-    onStart: () => document.getElementById("drizzleSound").play()
+      trigger: "#scene2",
+      start: "top 70%",
+      onEnter: () => { meatAnim.play(); document.getElementById("soundSizzle").play(); }
+    }
   });
 
-  // Final sandwich
-  gsap.to("#finalSandwich", {
+  // SCENE 3
+  gsap.to(tahinaAnim, {
     scrollTrigger: {
-      trigger: "#finalSection",
-      start: "top 80%",
-      toggleActions: "play none none reverse"
-    },
-    scale: 1, opacity: 1, duration: 1.4, ease: "expo.out",
-    delay: 0.2, onStart: () => document.getElementById("popSound").play()
+      trigger: "#scene3",
+      start: "top 70%",
+      onEnter: () => { tahinaAnim.play(); document.getElementById("soundDrip").play(); }
+    }
   });
+
+  // SCENE 4
+  gsap.to(picklesAnim, {
+    scrollTrigger: {
+      trigger: "#scene4",
+      start: "top 70%",
+      onEnter: () => { picklesAnim.play(); document.getElementById("soundPop").play(); }
+    }
+  });
+
 </script>
 
 </body>
