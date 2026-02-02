@@ -1,236 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Kufta — Street Food</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Let's Cook Hawawshi | Kufta</title>
+  <style>
+    :root {
+      --primary: #e74c3c;
+      --accent: #f39c12;
+      --bg: #fefefe;
+      --dark: #222;
+      --light: #fff;
+    }
 
-<style>
-  /* GLOBAL */
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: Arial, sans-serif; background: #fdfdfd; color: #222; }
-  img { max-width: 100%; display: block; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-  /* HEADER */
-  header {
-    background: #222; color: #fff;
-    padding: 1rem;
-    text-align: center;
-    font-size: 1.5rem;
-    position: sticky; top: 0; z-index: 10;
-  }
-  header .menu-toggle {
-    position: absolute; left: 1rem; top: 1rem;
-    font-size: 1.7rem; cursor: pointer; user-select: none;
-  }
+    header {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
 
-  /* NAV */
-  nav { display: none; background: #333; padding: 1rem; }
-  nav a {
-    display: block; padding: 0.75rem;
-    color: white; font-size: 1.2rem;
-    text-decoration: none;
-  }
-  nav a:hover { background: #444; }
+    header h1 {
+      margin-bottom: 0.5rem;
+    }
 
-  /* HERO */
-  .hero {
-    background: #e74c3c; color: white;
-    text-align: center;
-    padding: 3rem 1rem;
-  }
-  .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-  .hero p { font-size: 1.2rem; }
-  
-  /* SECTIONS */
-  section { padding: 2rem 1rem; }
+    .section {
+      padding: 2rem 1rem;
+      max-width: 800px;
+      margin: auto;
+    }
 
-  h2 { margin-bottom: 1rem; color: #333; }
+    .step {
+      background: white;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: 0.3s ease;
+    }
 
-  .menu-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-  .menu-card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 1rem;
-    text-align: center;
-    background: white;
-  }
-  .menu-card h3 { margin-bottom: 0.5rem; font-size: 1.2rem; }
-  .menu-card p { margin-bottom: 0.7rem; }
-  .menu-card button {
-    padding: .5rem 1rem;
-    background: #27ae60; color: white;
-    border: none; border-radius: 4px;
-    cursor: pointer;
-  }
-  .menu-card button:hover { background: #219150; }
+    .step h2 {
+      margin-bottom: 1rem;
+    }
 
-  /* CART */
-  .cart {
-    background: #fff3cd;
-    border: 1px solid #ffeeba;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-top: 1rem;
-  }
-  .cart h3 { margin-bottom: .8rem; }
-  .cart p { margin: .5rem 0; font-size: 1rem; }
-  .cart button {
-    padding: .6rem 1rem;
-    background: #c0392b; color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    width: 100%;
-    font-size: 1rem;
-  }
-  .cart button:hover { background: #a32d22; }
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
 
-  /* LOCATION PROMPT */
-  #locationPrompt {
-    background: #3498db; padding: 1rem;
-    color: white; text-align: center;
-    display: none;
-  }
-  #locationPrompt button {
-    margin-top: .7rem;
-    padding: .6rem 1rem;
-    background: white;
-    color: #3498db;
-    border: none; border-radius: 4px;
-    cursor: pointer;
-  }
+    .option {
+      flex: 1 1 40%;
+      padding: 1rem;
+      background: #f9f9f9;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
 
-  @media (max-width: 600px) {
-    .menu-grid { grid-template-columns: 1fr; }
-  }
-</style>
+    .option:hover {
+      background: #fff3e0;
+    }
 
+    .option.selected {
+      border-color: var(--accent);
+      background: #fff8e1;
+    }
+
+    .cart {
+      background: var(--light);
+      border-top: 2px solid #eee;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .cart h2 {
+      margin-bottom: 1rem;
+    }
+
+    .cart-items p {
+      margin: 0.5rem 0;
+    }
+
+    .total {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+
+    .checkout {
+      margin-top: 1rem;
+      background: var(--accent);
+      color: var(--light);
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      background: #f3f3f3;
+      margin-top: auto;
+    }
+
+    @media (max-width: 600px) {
+      .option {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
-  <div class="menu-toggle" onclick="toggleNav()">☰</div>
-  Kufta — Authentic Egyptian Street Food
-</header>
+  <header>
+    <h1>🧑‍🍳 Let’s Cook Hawawshi</h1>
+    <p>Choose your style, stuffing, and toppings — make it yours!</p>
+  </header>
 
-<!-- NAV -->
-<nav id="nav">
-  <a href="#hero">Home</a>
-  <a href="#menu">Menu</a>
-  <a href="#cart">Cart</a>
-  <a href="#contact">Contact</a>
-</nav>
+  <main class="section">
+    <!-- Step 1 -->
+    <div class="step">
+      <h2>1️⃣ Choose Your Bread</h2>
+      <div class="options" id="breadOptions">
+        <div class="option" data-name="Baladi Bread" data-price="10">Baladi Bread</div>
+        <div class="option" data-name="Crispy Thin Bread" data-price="12">Crispy Thin Bread</div>
+      </div>
+    </div>
 
-<!-- LOCATION PROMPT -->
-<div id="locationPrompt">
-  📍 Enable Location for Accurate Pricing
-  <br />
-  <button onclick="requestLocation()">Allow Location</button>
-</div>
+    <!-- Step 2 -->
+    <div class="step">
+      <h2>2️⃣ Pick Your Stuffing</h2>
+      <div class="options" id="stuffingOptions">
+        <div class="option" data-name="Classic Kufta" data-price="30">Classic Kufta</div>
+        <div class="option" data-name="Spicy Beef" data-price="35">Spicy Beef</div>
+        <div class="option" data-name="Mushroom Surprise" data-price="40">Mushroom Surprise</div>
+      </div>
+    </div>
 
-<!-- HERO -->
-<section id="hero" class="hero">
-  <h1>Welcome to Kufta!</h1>
-  <p>Delicious Egyptian Kufta & Hawawshi made fresh daily.</p>
-</section>
+    <!-- Step 3 -->
+    <div class="step">
+      <h2>3️⃣ Add Toppings</h2>
+      <div class="options" id="toppingOptions">
+        <div class="option" data-name="Tahina" data-price="5">Tahina</div>
+        <div class="option" data-name="Chili" data-price="3">Chili</div>
+        <div class="option" data-name="Pickles" data-price="4">Pickles</div>
+      </div>
+    </div>
+  </main>
 
-<!-- MENU -->
-<section id="menu">
-  <h2>Our Menu 🍢</h2>
-  <div class="menu-grid" id="menuGrid"></div>
-</section>
-
-<!-- CART -->
-<section id="cart">
-  <h2>Your Cart 🛒</h2>
-  <div class="cart" id="cartBox">
-    <p>Your cart is empty</p>
-    <p>Subtotal: 0 EGP</p>
+  <div class="cart">
+    <h2>🛒 Your Hawawshi</h2>
+    <div class="cart-items" id="cartItems">
+      <p>No selections yet.</p>
+    </div>
+    <div class="total">Total: <span id="total">0</span> EGP</div>
+    <button class="checkout" onclick="checkout()">Confirm Order</button>
   </div>
-</section>
 
-<!-- CONTACT -->
-<section id="contact">
-  <h2>Contact Us</h2>
-  <p>Hotline: <strong>15544</strong></p>
-  <p>Instagram · Facebook</p>
-</section>
+  <footer>
+    Kufta © 2026 · Egyptian Street Food 🍢
+  </footer>
 
-<script>
-  // ==== NAV TOGGLE ====
-  function toggleNav() {
-    let nav = document.getElementById("nav");
-    nav.style.display = nav.style.display === "block" ? "none" : "block";
-  }
+  <script>
+    const cart = [];
+    const totalEl = document.getElementById("total");
+    const cartItemsEl = document.getElementById("cartItems");
 
-  // ==== LOCATION REQUEST ====
-  document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("locationPrompt").style.display = "block";
-  });
-
-  function requestLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        alert("Thanks! Location saved.");
-        document.getElementById("locationPrompt").style.display = "none";
+    function handleSelection(containerId, single = true) {
+      const container = document.getElementById(containerId);
+      container.querySelectorAll('.option').forEach(option => {
+        option.addEventListener('click', () => {
+          if (single) {
+            container.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+          }
+          option.classList.toggle('selected');
+          updateCart();
+        });
       });
     }
-  }
 
-  // ==== MENU DATA ====
-  const menu = [
-    { name: "Kufta Sandwich", price: 45 },
-    { name: "Hawawshi", price: 60 },
-    { name: "Kufta Combo (5)", price: 200 },
-    { name: "Family Box", price: 300 },
-    { name: "Fries", price: 30 },
-    { name: "Drink", price: 20 }
-  ];
+    function updateCart() {
+      const selected = document.querySelectorAll('.option.selected');
+      cart.length = 0;
+      selected.forEach(item => {
+        cart.push({
+          name: item.dataset.name,
+          price: parseFloat(item.dataset.price)
+        });
+      });
 
-  let cart = [];
+      let total = 0;
+      let html = '';
+      cart.forEach(item => {
+        total += item.price;
+        html += `<p>${item.name} — ${item.price} EGP</p>`;
+      });
 
-  function displayMenu() {
-    const grid = document.getElementById("menuGrid");
-    menu.forEach((item, idx) => {
-      const card = document.createElement("div");
-      card.className = "menu-card";
-      card.innerHTML = `
-        <h3>${item.name}</h3>
-        <p>${item.price} EGP</p>
-        <button onclick="addToCart(${idx})">Add</button>
-      `;
-      grid.appendChild(card);
-    });
-  }
+      cartItemsEl.innerHTML = cart.length ? html : "<p>No selections yet.</p>";
+      totalEl.textContent = total;
+    }
 
-  function addToCart(idx) {
-    cart.push(menu[idx]);
-    showCart();
-  }
+    function checkout() {
+      if (!cart.length) {
+        alert("Please build your Hawawshi first!");
+        return;
+      }
+      alert("Order placed! We'll start grilling right away 🔥");
+      document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+      updateCart();
+    }
 
-  function showCart() {
-    const box = document.getElementById("cartBox");
-    let subtotal = cart.reduce((a,b) => a + b.price, 0);
-    box.innerHTML = `
-      <h3>Your Cart 🛒</h3>
-      <p>Items: ${cart.length}</p>
-      <p>Subtotal: ${subtotal} EGP</p>
-      <button onclick="checkout()">Checkout</button>
-    `;
-  }
-
-  function checkout() {
-    alert("Proceed to checkout (backend integration next!)");
-  }
-
-  displayMenu();
-</script>
-
+    // Init selectors
+    handleSelection('breadOptions', true);
+    handleSelection('stuffingOptions', true);
+    handleSelection('toppingOptions', false);
+  </script>
 </body>
 </html>
