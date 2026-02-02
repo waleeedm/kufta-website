@@ -2,175 +2,159 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kufta | Hawawshi Experience</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Kufta — Cinematic Interactive</title>
 
-<!-- GSAP/ScrollTrigger -->
+<!-- GSAP + ScrollTrigger -->
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
-<!-- Lottie -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js"></script>
 
 <style>
   body {
     margin: 0;
-    font-family: "Segoe UI", sans-serif;
-    background: #fefbf8;
+    font-family: "Inter", sans-serif;
+    background: #111;
+    color: #fff;
     overflow-x: hidden;
-    color: #222;
   }
 
   header {
-    text-align: center;
-    padding: 3rem 1rem;
-    background: #e8d4c2;
-    font-size: 2rem;
     position: sticky;
     top: 0;
-    z-index: 20;
+    width: 100%;
+    text-align: center;
+    padding: 2rem;
+    font-size: 2.2rem;
+    background: rgba(0,0,0,0.6);
+    z-index: 30;
+    backdrop-filter: blur(8px);
   }
 
-  .section {
+  section {
     min-height: 100vh;
-    padding: 4rem 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
 
-  .lottie-container {
-    width: 300px;
-    height: 300px;
+  .layer {
+    position: absolute;
+    opacity: 0;
+  }
+
+  .layer img {
+    max-width: 80%;
     pointer-events: none;
+    will-change: transform, opacity;
   }
 
   .label {
-    text-align: center;
-    margin-top: 1rem;
-    font-weight: bold;
-    font-size: 1.2rem;
+    position: relative;
+    z-index: 50;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 8px rgba(0,0,0,0.8);
+    opacity: 0;
   }
 
-  #progressBar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 5px;
-    background: #e74c3c;
-    width: 0%;
-    z-index: 30;
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.9rem;
+    background: #000;
+    color: #aaa;
   }
 </style>
 </head>
 
 <body>
 
-<div id="progressBar"></div>
+<header>🍽️ Kufta — Cinematic Cooking Adventure</header>
 
-<header>🍢 The Interactive Hawawshi Story</header>
-
-<section class="section" id="scene1">
-  <div>
-    <div id="lottieBread" class="lottie-container"></div>
-    <div class="label">Fresh Bread Arrives</div>
+<!-- Scene 1: Bread enters with zoom parallax -->
+<section id="scene1">
+  <div class="layer" id="bg1" style="z-index:1; transform: translateZ(-500px) scale(2);">
+    <img src="https://i.imgur.com/ZJ2QFom.png" alt="Background Texture">
   </div>
+  <div class="layer" id="breadLayer" style="z-index:10;">
+    <img src="https://i.imgur.com/6Q5N7j0.png" alt="Bread">
+  </div>
+  <div class="label">Fresh Bread</div>
 </section>
 
-<section class="section" id="scene2">
-  <div>
-    <div id="lottieMeat" class="lottie-container"></div>
-    <div class="label">Sizzling Meat</div>
+<!-- Scene 2: Meat slides in from right, slight parallax -->
+<section id="scene2">
+  <div class="layer" id="bg2" style="z-index:1; transform: translateZ(-300px) scale(1.8);">
+    <img src="https://i.imgur.com/Pl2ABuO.png" alt="Smoke Texture">
   </div>
+  <div class="layer" id="meatLayer" style="z-index:10;">
+    <img src="https://i.imgur.com/7oR0agu.png" alt="Meat">
+  </div>
+  <div class="label">Sizzling Premium Meat</div>
 </section>
 
-<section class="section" id="scene3">
-  <div>
-    <div id="lottieTahina" class="lottie-container"></div>
-    <div class="label">Tahina Magic</div>
+<!-- Scene 3: Tahina drizzle, slow fade -->
+<section id="scene3">
+  <div class="layer" id="bg3" style="z-index:1; transform: translateZ(-300px) scale(2);">
+    <img src="https://i.imgur.com/7rX14c0.png" alt="Fluid Texture">
   </div>
+  <div class="layer" id="tahinaLayer" style="z-index:10;">
+    <img src="https://i.imgur.com/W8G0u5p.png" alt="Tahina Drizzle">
+  </div>
+  <div class="label">Creamy Tahina</div>
 </section>
 
-<section class="section" id="scene4">
-  <div>
-    <div id="lottiePickles" class="lottie-container"></div>
-    <div class="label">Pickles & Final Touch</div>
+<!-- Scene 4: Pickles & Final -->
+<section id="scene4">
+  <div class="layer" id="bg4" style="z-index:1; transform: translateZ(-300px) scale(1.8);">
+    <img src="https://i.imgur.com/jHN4lXK.png" alt="Ambient Texture">
   </div>
+  <div class="layer" id="picklesLayer" style="z-index:10;">
+    <img src="https://i.imgur.com/7GT4A5d.png" alt="Pickles">
+  </div>
+  <div class="label">Final Assembly</div>
 </section>
 
-<footer style="text-align:center; padding:2rem 0;">Kufta • 2026 🍽️</footer>
-
-<!-- Sound FX -->
-<audio id="soundSizzle" src="https://cdn.jsdelivr.net/gh/araffin/sound-effects/sizzle.mp3"></audio>
-<audio id="soundPop" src="https://cdn.jsdelivr.net/gh/araffin/sound-effects/pop.mp3"></audio>
-<audio id="soundDrip" src="https://cdn.jsdelivr.net/gh/araffin/sound-effects/drip.mp3"></audio>
+<footer>Kufta © 2026 — Cinematic Interactive</footer>
 
 <script>
   gsap.registerPlugin(ScrollTrigger);
 
-  // PROGRESS BAR
-  gsap.to("#progressBar", {
-    width: "100%",
-    ease: "none",
-    scrollTrigger: {
-      trigger: "body",
-      start: "top top",
-      end: "bottom bottom",
-      scrub: 0.3
-    }
-  });
-
-  function loadLottie(id, path) {
-    return lottie.loadAnimation({
-      container: document.getElementById(id),
-      renderer: "svg",
-      loop: true,
-      autoplay: false,
-      path: path
+  // Utility for layered parallax fade-in
+  function cinematicFade(layer, trigger, opts = {}) {
+    gsap.to(layer, {
+      scrollTrigger: {
+        trigger: trigger,
+        start: "top 80%",
+        end: "bottom 50%",
+        scrub: true
+      },
+      opacity: 1,
+      y: opts.y || 0,
+      x: opts.x || 0,
+      scale: opts.scale || 1,
+      duration: 1.6,
+      ease: "power2.out"
     });
   }
 
-  const breadAnim   = loadLottie("lottieBread", "https://assets10.lottiefiles.com/packages/lf20_mJr87p.json");
-  const meatAnim    = loadLottie("lottieMeat",  "https://assets4.lottiefiles.com/packages/lf20_yc4rgt2y.json");
-  const tahinaAnim  = loadLottie("lottieTahina","https://assets7.lottiefiles.com/packages/lf20_t3pmv7.json");
-  const picklesAnim = loadLottie("lottiePickles","https://assets1.lottiefiles.com/packages/lf20_2vbXrD.json");
+  // Bread scene
+  cinematicFade("#breadLayer img", "#scene1", { scale: 1, y: -40 });
+  cinematicFade(".label", "#scene1");
 
-  // SCENE 1
-  gsap.to(breadAnim, {
-    scrollTrigger: {
-      trigger: "#scene1",
-      start: "top 70%",
-      onEnter: () => { breadAnim.play(); document.getElementById("soundPop").play(); }
-    }
-  });
+  // Meat scene
+  cinematicFade("#meatLayer img", "#scene2", { x: 0 });
+  cinematicFade(".label", "#scene2");
 
-  // SCENE 2
-  gsap.to(meatAnim, {
-    scrollTrigger: {
-      trigger: "#scene2",
-      start: "top 70%",
-      onEnter: () => { meatAnim.play(); document.getElementById("soundSizzle").play(); }
-    }
-  });
+  // Tahina
+  cinematicFade("#tahinaLayer img", "#scene3", { y: -20 });
+  cinematicFade(".label", "#scene3");
 
-  // SCENE 3
-  gsap.to(tahinaAnim, {
-    scrollTrigger: {
-      trigger: "#scene3",
-      start: "top 70%",
-      onEnter: () => { tahinaAnim.play(); document.getElementById("soundDrip").play(); }
-    }
-  });
-
-  // SCENE 4
-  gsap.to(picklesAnim, {
-    scrollTrigger: {
-      trigger: "#scene4",
-      start: "top 70%",
-      onEnter: () => { picklesAnim.play(); document.getElementById("soundPop").play(); }
-    }
-  });
-
+  // Pickles
+  cinematicFade("#picklesLayer img", "#scene4", { y: 0 });
+  cinematicFade(".label", "#scene4");
 </script>
 
 </body>
