@@ -1,235 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Let's Cook Hawawshi | Kufta</title>
-  <style>
-    :root {
-      --primary: #e74c3c;
-      --accent: #f39c12;
-      --bg: #fefefe;
-      --dark: #222;
-      --light: #fff;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Kufta — Hawawshi Cooking Journey</title>
 
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: var(--bg);
-      color: var(--dark);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
+<!-- GSAP + ScrollTrigger -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
 
-    header {
-      background: var(--primary);
-      color: white;
-      text-align: center;
-      padding: 2rem 1rem;
-    }
+<style>
+  body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #faf8f2;
+    color: #222;
+    overflow-x: hidden;
+  }
+  header {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: #e2c9b8;
+    font-size: 2rem;
+  }
 
-    header h1 {
-      margin-bottom: 0.5rem;
-    }
+  section {
+    position: relative;
+    padding: 8rem 1rem;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    .section {
-      padding: 2rem 1rem;
-      max-width: 800px;
-      margin: auto;
-    }
+  .ingredient {
+    width: 300px;
+    opacity: 0;
+    transform: translateY(100px);
+  }
 
-    .step {
-      background: white;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      transition: 0.3s ease;
-    }
+  #finalSandwich {
+    opacity: 0;
+    transform: scale(0.5);
+  }
 
-    .step h2 {
-      margin-bottom: 1rem;
-    }
-
-    .options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .option {
-      flex: 1 1 40%;
-      padding: 1rem;
-      background: #f9f9f9;
-      border: 2px solid transparent;
-      border-radius: 8px;
-      text-align: center;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .option:hover {
-      background: #fff3e0;
-    }
-
-    .option.selected {
-      border-color: var(--accent);
-      background: #fff8e1;
-    }
-
-    .cart {
-      background: var(--light);
-      border-top: 2px solid #eee;
-      padding: 1.5rem;
-      text-align: center;
-    }
-
-    .cart h2 {
-      margin-bottom: 1rem;
-    }
-
-    .cart-items p {
-      margin: 0.5rem 0;
-    }
-
-    .total {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-top: 1rem;
-    }
-
-    .checkout {
-      margin-top: 1rem;
-      background: var(--accent);
-      color: var(--light);
-      border: none;
-      padding: 0.8rem 1.5rem;
-      font-size: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-      background: #f3f3f3;
-      margin-top: auto;
-    }
-
-    @media (max-width: 600px) {
-      .option {
-        flex: 1 1 100%;
-      }
-    }
-  </style>
+  .label {
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: bold;
+    color: #5c3f32;
+  }
+</style>
 </head>
+
 <body>
 
-  <header>
-    <h1>🧑‍🍳 Let’s Cook Hawawshi</h1>
-    <p>Choose your style, stuffing, and toppings — make it yours!</p>
-  </header>
+<header>
+  🍖 Welcome to the Hawawshi Cooking Journey 🍞
+</header>
 
-  <main class="section">
-    <!-- Step 1 -->
-    <div class="step">
-      <h2>1️⃣ Choose Your Bread</h2>
-      <div class="options" id="breadOptions">
-        <div class="option" data-name="Baladi Bread" data-price="10">Baladi Bread</div>
-        <div class="option" data-name="Crispy Thin Bread" data-price="12">Crispy Thin Bread</div>
-      </div>
-    </div>
-
-    <!-- Step 2 -->
-    <div class="step">
-      <h2>2️⃣ Pick Your Stuffing</h2>
-      <div class="options" id="stuffingOptions">
-        <div class="option" data-name="Classic Kufta" data-price="30">Classic Kufta</div>
-        <div class="option" data-name="Spicy Beef" data-price="35">Spicy Beef</div>
-        <div class="option" data-name="Mushroom Surprise" data-price="40">Mushroom Surprise</div>
-      </div>
-    </div>
-
-    <!-- Step 3 -->
-    <div class="step">
-      <h2>3️⃣ Add Toppings</h2>
-      <div class="options" id="toppingOptions">
-        <div class="option" data-name="Tahina" data-price="5">Tahina</div>
-        <div class="option" data-name="Chili" data-price="3">Chili</div>
-        <div class="option" data-name="Pickles" data-price="4">Pickles</div>
-      </div>
-    </div>
-  </main>
-
-  <div class="cart">
-    <h2>🛒 Your Hawawshi</h2>
-    <div class="cart-items" id="cartItems">
-      <p>No selections yet.</p>
-    </div>
-    <div class="total">Total: <span id="total">0</span> EGP</div>
-    <button class="checkout" onclick="checkout()">Confirm Order</button>
+<!-- Bread Scroll Section -->
+<section id="breadSection">
+  <div>
+    <!-- Hand‑drawn sketchy bread -->
+    <svg class="ingredient" id="breadSVG" viewBox="0 0 128 128">
+      <ellipse cx="64" cy="70" rx="60" ry="40" fill="#f2d7b5" stroke="#bc8b5e" stroke-width="4" />
+      <path d="M15,70 q30,-50 100,0" fill="#f9e4c8" stroke="#bc8b5e" stroke-width="4"/>
+    </svg>
+    <div class="label">Fresh Bread</div>
   </div>
+</section>
 
-  <footer>
-    Kufta © 2026 · Egyptian Street Food 🍢
-  </footer>
+<!-- Meat Scroll Section -->
+<section id="meatSection">
+  <div>
+    <svg class="ingredient" id="meatSVG" viewBox="0 0 128 128">
+      <rect x="10" y="30" width="108" height="60" rx="20"
+            fill="#a33f2a" stroke="#732c1d" stroke-width="4" />
+      <text x="64" y="70" text-anchor="middle" fill="#fff"
+            font-size="20">Meat</text>
+    </svg>
+    <div class="label">Juicy Meat</div>
+  </div>
+</section>
 
-  <script>
-    const cart = [];
-    const totalEl = document.getElementById("total");
-    const cartItemsEl = document.getElementById("cartItems");
+<!-- Tahina Scroll Section -->
+<section id="tahinaSection">
+  <div>
+    <svg class="ingredient" id="tahinaSVG" viewBox="0 0 128 128">
+      <path d="M20,20 q50,80 90,0" stroke="#e0d7c2" stroke-width="12"
+            fill="none" stroke-linecap="round"/>
+      <circle cx="64" cy="40" r="10" fill="#fff9ed"/>
+    </svg>
+    <div class="label">Drizzling Tahina</div>
+  </div>
+</section>
 
-    function handleSelection(containerId, single = true) {
-      const container = document.getElementById(containerId);
-      container.querySelectorAll('.option').forEach(option => {
-        option.addEventListener('click', () => {
-          if (single) {
-            container.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
-          }
-          option.classList.toggle('selected');
-          updateCart();
-        });
-      });
-    }
+<!-- Final Assembly Section -->
+<section id="finalSection">
+  <div>
+    <svg class="ingredient" id="finalSandwich" viewBox="0 0 200 200">
+      <!-- Bread bottom -->
+      <ellipse cx="100" cy="150" rx="80" ry="30" fill="#f2d7b5" stroke="#bc8b5e" stroke-width="4"/>
+      <!-- Meat middle -->
+      <rect x="30" y="100" width="140" height="50" rx="15"
+            fill="#a33f2a" stroke="#732c1d" stroke-width="3"/>
+      <!-- Tahina streak -->
+      <path d="M40,90 q60,30 120,0" stroke="#e0d7c2" stroke-width="10" fill="none"/>
+      <!-- Bread top -->
+      <ellipse cx="100" cy="60" rx="80" ry="30" fill="#f2d7b5" stroke="#bc8b5e" stroke-width="4"/>
+    </svg>
+    <div class="label">Your Hawawshi Is Ready! 🍽️</div>
+  </div>
+</section>
 
-    function updateCart() {
-      const selected = document.querySelectorAll('.option.selected');
-      cart.length = 0;
-      selected.forEach(item => {
-        cart.push({
-          name: item.dataset.name,
-          price: parseFloat(item.dataset.price)
-        });
-      });
+<!-- Audio cues -->
+<audio id="sizzleSound" src="https://cdn.jsdelivr.net/gh/araffin/sound-effects/sizzle.mp3"></audio>
+<audio id="popSound"   src="https://cdn.jsdelivr.net/gh/araffin/sound-effects/pop.mp3"></audio>
+<audio id="drizzleSound" src="https://cdn.jsdelivr.net/gh/araffin/sound-effects/drizzle.mp3"></audio>
 
-      let total = 0;
-      let html = '';
-      cart.forEach(item => {
-        total += item.price;
-        html += `<p>${item.name} — ${item.price} EGP</p>`;
-      });
+<script>
+  gsap.registerPlugin(ScrollTrigger);
 
-      cartItemsEl.innerHTML = cart.length ? html : "<p>No selections yet.</p>";
-      totalEl.textContent = total;
-    }
+  // Bread animation
+  gsap.to("#breadSVG", {
+    scrollTrigger: {
+      trigger: "#breadSection",
+      start: "top 80%",
+      toggleActions: "play none none reverse"
+    },
+    y: 0, opacity: 1, duration: 1.2, ease: "back.out(1.7)",
+    onStart: () => document.getElementById("popSound").play()
+  });
 
-    function checkout() {
-      if (!cart.length) {
-        alert("Please build your Hawawshi first!");
-        return;
-      }
-      alert("Order placed! We'll start grilling right away 🔥");
-      document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
-      updateCart();
-    }
+  // Meat animation
+  gsap.to("#meatSVG", {
+    scrollTrigger: {
+      trigger: "#meatSection",
+      start: "top 80%",
+      toggleActions: "play none none reverse"
+    },
+    y: 0, opacity: 1, duration: 1.2, ease: "elastic.out(1, 0.5)",
+    onStart: () => document.getElementById("sizzleSound").play()
+  });
 
-    // Init selectors
-    handleSelection('breadOptions', true);
-    handleSelection('stuffingOptions', true);
-    handleSelection('toppingOptions', false);
-  </script>
+  // Tahina animation
+  gsap.to("#tahinaSVG", {
+    scrollTrigger: {
+      trigger: "#tahinaSection",
+      start: "top 80%",
+      toggleActions: "play none none reverse"
+    },
+    y: 0, opacity: 1, duration: 1.3, ease: "power2.out",
+    onStart: () => document.getElementById("drizzleSound").play()
+  });
+
+  // Final sandwich
+  gsap.to("#finalSandwich", {
+    scrollTrigger: {
+      trigger: "#finalSection",
+      start: "top 80%",
+      toggleActions: "play none none reverse"
+    },
+    scale: 1, opacity: 1, duration: 1.4, ease: "expo.out",
+    delay: 0.2, onStart: () => document.getElementById("popSound").play()
+  });
+</script>
+
 </body>
 </html>
